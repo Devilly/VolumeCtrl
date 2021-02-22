@@ -1,0 +1,13 @@
+name: Keep SemVer up-to-date
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  actions-tagger:
+    runs-on: windows-latest
+    steps:
+      - uses: Actions-R-Us/actions-tagger@latest
+        env:
+          GITHUB_TOKEN: "${{ github.token }}"
