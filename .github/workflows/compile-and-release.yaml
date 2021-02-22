@@ -18,14 +18,21 @@ jobs:
       run: Expand-Archive -Path ahk.zip ahk
     - name: Compile
       run: ./ahk/Compiler/Ahk2Exe.exe /in main.ahk /out VolumeCtrl.exe /icon icon-blue.ico
-    - name: Create Release
+    - name: Create release
+      id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: |
-          Changes in this Release
-          - First Change
-          - Second Change
+        release_name: Release ${{ github.run_number }}
+        body: \-
+    - name: Add exe to release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: VolumeCtrl.exe
+        asset_name: VolumeCtrl.exe
+        asset_content_type: application/octet-stream
