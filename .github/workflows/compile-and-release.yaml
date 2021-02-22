@@ -16,5 +16,16 @@ jobs:
       run: Start-BitsTransfer -Source https://autohotkey.com/download/ahk.zip -Destination ahk.zip
     - name: Extract AutoHotkey
       run: Expand-Archive -Path ahk.zip ahk
-    - name: List dir
-      run: Get-ChildItem
+    - name: Compile
+      run: ./ahk/Compiler/Ahk2Exe.exe /in main.ahk /out VolumeCtrl.exe /icon icon-blue.ico
+    - name: Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          Changes in this Release
+          - First Change
+          - Second Change
