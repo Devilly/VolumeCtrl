@@ -13,6 +13,8 @@ jobs:
     - name: Checkout source
       uses: actions/checkout@v2
     - name: Download AutoHotkey
-      run: Start-BitsTransfer -Source https://autohotkey.com/download/ahk.zip -Destination ahk.exe
+      run: Start-BitsTransfer -Source https://autohotkey.com/download/ahk.zip -Destination ahk.zip
+    - name: Extract AutoHotkey
+      run: Expand-Archive -Path ahk.zip ahk
     - name: List dir
       run: Get-ChildItem
