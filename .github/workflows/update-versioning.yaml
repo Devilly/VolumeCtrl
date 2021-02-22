@@ -2,7 +2,7 @@ name: Keep SemVer up-to-date
 
 on:
   release:
-    types: [created]
+    types: [published, edited]
 
 jobs:
   actions-tagger:
