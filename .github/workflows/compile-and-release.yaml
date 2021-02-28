@@ -15,7 +15,7 @@ jobs:
     - name: Download AutoHotkey
       run: Start-BitsTransfer -Source https://autohotkey.com/download/ahk.zip -Destination ahk.zip
     - name: Extract AutoHotkey
-      run: Expand-Archive -Path ahk.zip ahk
+      run: Expand-Archive -Path ahk.zip -DestinationPath ahk
     - name: Compile
       run: ./ahk/Compiler/Ahk2Exe.exe /in main.ahk /out VolumeCtrl.exe /icon icon-blue.ico
     - name: Create release
